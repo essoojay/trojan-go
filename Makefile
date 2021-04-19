@@ -34,20 +34,13 @@ trojan-go:
 install: $(BUILD_DIR)/$(NAME) geoip.dat geosite.dat
 	mkdir -p /etc/$(NAME)
 	mkdir -p /usr/share/$(NAME)
-	cp example/*.json /etc/$(NAME)
 	cp $(BUILD_DIR)/$(NAME) /usr/bin/$(NAME)
-	cp example/$(NAME).service /usr/lib/systemd/system/
-	cp example/$(NAME)@.service /usr/lib/systemd/system/
-	systemctl daemon-reload
 	cp geosite.dat /usr/share/$(NAME)/geosite.dat
 	cp geoip.dat /usr/share/$(NAME)/geoip.dat
 	ln -fs /usr/share/$(NAME)/geoip.dat /usr/bin/
 	ln -fs /usr/share/$(NAME)/geosite.dat /usr/bin/
 
 uninstall:
-	rm /usr/lib/systemd/system/$(NAME).service
-	rm /usr/lib/systemd/system/$(NAME)@.service
-	systemctl daemon-reload
 	rm /usr/bin/$(NAME)
 	rm -rd /etc/$(NAME)
 	rm -rd /usr/share/$(NAME)
@@ -56,13 +49,63 @@ uninstall:
 
 %.zip: % geosite.dat geoip.dat
 	@zip -du $(NAME)-$@ -j $(BUILD_DIR)/$</*
-	@zip -du $(NAME)-$@ example/*
 	@-zip -du $(NAME)-$@ *.dat
 	@echo "<<< ---- $(NAME)-$@"
 
-release: geosite.dat geoip.dat linux-amd64.zip 
+release: geosite.dat geoip.dat linux-386.zip linux-amd64.zip \
+	linux-arm.zip linux-armv5.zip linux-armv6.zip linux-armv7.zip linux-armv8.zip \
+	linux-mips-softfloat.zip linux-mips-hardfloat.zip linux-mipsle-softfloat.zip linux-mipsle-hardfloat.zip \
+	linux-mips64.zip linux-mips64le.zip
 	
+linux-386:
+	mkdir -p $(BUILD_DIR)/$@
+	GOARCH=386 GOOS=linux $(GOBUILD)/$@
+
 linux-amd64:
 	mkdir -p $(BUILD_DIR)/$@
 	GOARCH=amd64 GOOS=linux $(GOBUILD)/$@
+
+linux-arm:
+	mkdir -p $(BUILD_DIR)/$@
+	GOARCH=arm GOOS=linux $(GOBUILD)/$@
+
+linux-armv5:
+	mkdir -p $(BUILD_DIR)/$@
+	GOARCH=arm GOOS=linux GOARM=5 $(GOBUILD)/$@
+
+linux-armv6:
+	mkdir -p $(BUILD_DIR)/$@
+	GOARCH=arm GOOS=linux GOARM=6 $(GOBUILD)/$@
+
+linux-armv7:
+	mkdir -p $(BUILD_DIR)/$@
+	GOARCH=arm GOOS=linux GOARM=7 $(GOBUILD)/$@
+
+linux-armv8:
+	mkdir -p $(BUILD_DIR)/$@
+	GOARCH=arm64 GOOS=linux $(GOBUILD)/$@
+
+linux-mips-softfloat:
+	mkdir -p $(BUILD_DIR)/$@
+	GOARCH=mips GOMIPS=softfloat GOOS=linux $(GOBUILD)/$@
+
+linux-mips-hardfloat:
+	mkdir -p $(BUILD_DIR)/$@
+	GOARCH=mips GOMIPS=hardfloat GOOS=linux $(GOBUILD)/$@
+
+linux-mipsle-softfloat:
+	mkdir -p $(BUILD_DIR)/$@
+	GOARCH=mipsle GOMIPS=softfloat GOOS=linux $(GOBUILD)/$@
+
+linux-mipsle-hardfloat:
+	mkdir -p $(BUILD_DIR)/$@
+	GOARCH=mipsle GOMIPS=hardfloat GOOS=linux $(GOBUILD)/$@
+
+linux-mips64:
+	mkdir -p $(BUILD_DIR)/$@
+	GOARCH=mips64 GOOS=linux $(GOBUILD)/$@
+
+linux-mips64le:
+	mkdir -p $(BUILD_DIR)/$@
+	GOARCH=mips64le GOOS=linux $(GOBUILD)/$@
 
