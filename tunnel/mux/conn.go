@@ -4,8 +4,8 @@ import (
 	"io"
 	"math/rand"
 
-	"github.com/frainzy1477/trojan-goo/log"
-	"github.com/frainzy1477/trojan-goo/tunnel"
+	"github.com/frainzy1477/trojan-go/log"
+	"github.com/frainzy1477/trojan-go/tunnel"
 )
 
 type stickyConn struct {

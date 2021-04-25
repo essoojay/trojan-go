@@ -1,4 +1,4 @@
-module github.com/frainzy1477/trojan-goo
+module github.com/frainzy1477/trojan-go
 
 go 1.16
 

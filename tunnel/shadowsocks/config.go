@@ -1,6 +1,6 @@
 package shadowsocks
 
-import "github.com/frainzy1477/trojan-goo/config"
+import "github.com/frainzy1477/trojan-go/config"
 
 type ShadowsocksConfig struct {
 	Enabled  bool   `json:"enabled" yaml:"enabled"`

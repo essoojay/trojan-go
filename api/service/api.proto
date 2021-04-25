@@ -1,6 +1,6 @@
 syntax = "proto3";
 package trojan.api;
-option go_package = "github.com/frainzy1477/trojan-goo/api/service";
+option go_package = "github.com/frainzy1477/trojan-go/api/service";
 
 message Traffic {
     uint64 upload_traffic = 1;

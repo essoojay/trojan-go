@@ -3,8 +3,8 @@ package fingerprint
 import (
 	"crypto/tls"
 
-	//"github.com/frainzy1477/trojan-goo/common"
-	"github.com/frainzy1477/trojan-goo/log"
+	//"github.com/frainzy1477/trojan-go/common"
+	"github.com/frainzy1477/trojan-go/log"
 	//. "github.com/refraction-networking/utls"
 )
 

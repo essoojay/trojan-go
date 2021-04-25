@@ -1,6 +1,6 @@
 package option
 
-import "github.com/frainzy1477/trojan-goo/common"
+import "github.com/frainzy1477/trojan-go/common"
 
 type Handler interface {
 	Name() string

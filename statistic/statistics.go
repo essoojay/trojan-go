@@ -6,9 +6,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/frainzy1477/trojan-goo/log"
+	"github.com/frainzy1477/trojan-go/log"
 
-	"github.com/frainzy1477/trojan-goo/common"
+	"github.com/frainzy1477/trojan-go/common"
 )
 
 type TrafficMeter interface {

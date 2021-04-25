@@ -4,9 +4,9 @@ import (
 	"context"
 	"net"
 
-	"github.com/frainzy1477/trojan-goo/common"
+	"github.com/frainzy1477/trojan-go/common"
 
-	"github.com/frainzy1477/trojan-goo/tunnel"
+	"github.com/frainzy1477/trojan-go/tunnel"
 )
 
 const MaxPacketSize = 1024 * 8

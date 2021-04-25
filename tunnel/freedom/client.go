@@ -4,9 +4,9 @@ import (
 	"context"
 	"net"
 
-	"github.com/frainzy1477/trojan-goo/common"
-	"github.com/frainzy1477/trojan-goo/config"
-	"github.com/frainzy1477/trojan-goo/tunnel"
+	"github.com/frainzy1477/trojan-go/common"
+	"github.com/frainzy1477/trojan-go/config"
+	"github.com/frainzy1477/trojan-go/tunnel"
 	"github.com/txthinking/socks5"
 	"golang.org/x/net/proxy"
 )

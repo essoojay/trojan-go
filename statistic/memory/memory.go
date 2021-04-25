@@ -6,12 +6,12 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/frainzy1477/trojan-goo/log"
+	"github.com/frainzy1477/trojan-go/log"
 
-	"github.com/frainzy1477/trojan-goo/config"
+	"github.com/frainzy1477/trojan-go/config"
 
-	"github.com/frainzy1477/trojan-goo/common"
-	"github.com/frainzy1477/trojan-goo/statistic"
+	"github.com/frainzy1477/trojan-go/common"
+	"github.com/frainzy1477/trojan-go/statistic"
 	"golang.org/x/time/rate"
 )
 

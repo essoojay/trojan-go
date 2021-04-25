@@ -4,13 +4,13 @@ import (
 	"context"
 	"net"
 
-	"github.com/frainzy1477/trojan-goo/common"
-	"github.com/frainzy1477/trojan-goo/config"
-	"github.com/frainzy1477/trojan-goo/log"
-	"github.com/frainzy1477/trojan-goo/tunnel"
-	"github.com/frainzy1477/trojan-goo/tunnel/freedom"
-	"github.com/frainzy1477/trojan-goo/tunnel/http"
-	"github.com/frainzy1477/trojan-goo/tunnel/socks"
+	"github.com/frainzy1477/trojan-go/common"
+	"github.com/frainzy1477/trojan-go/config"
+	"github.com/frainzy1477/trojan-go/log"
+	"github.com/frainzy1477/trojan-go/tunnel"
+	"github.com/frainzy1477/trojan-go/tunnel/freedom"
+	"github.com/frainzy1477/trojan-go/tunnel/http"
+	"github.com/frainzy1477/trojan-go/tunnel/socks"
 )
 
 type Server struct {

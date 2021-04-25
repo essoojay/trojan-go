@@ -1,7 +1,7 @@
 FROM golang:alpine AS builder
 WORKDIR /
 RUN apk add git make &&\
-    git clone https://github.com/frainzy1477/trojan-goo.git
+    git clone https://github.com/frainzy1477/trojan-go.git
 
 RUN cd trojan-go &&\
     make &&\

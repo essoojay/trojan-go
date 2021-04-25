@@ -3,5 +3,5 @@
 package build
 
 import (
-	_ "github.com/frainzy1477/trojan-goo/proxy/client"
+	_ "github.com/frainzy1477/trojan-go/proxy/client"
 )

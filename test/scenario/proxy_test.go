@@ -10,20 +10,20 @@ import (
 	"testing"
 	"time"
 
-	"github.com/frainzy1477/trojan-goo/test/util"
+	"github.com/frainzy1477/trojan-go/test/util"
 
 	_ "net/http/pprof"
 
-	_ "github.com/frainzy1477/trojan-goo/api"
-	_ "github.com/frainzy1477/trojan-goo/api/service"
-	"github.com/frainzy1477/trojan-goo/common"
-	_ "github.com/frainzy1477/trojan-goo/log/golog"
-	"github.com/frainzy1477/trojan-goo/proxy"
-	_ "github.com/frainzy1477/trojan-goo/proxy/client"
-	_ "github.com/frainzy1477/trojan-goo/proxy/forward"
-	_ "github.com/frainzy1477/trojan-goo/proxy/nat"
-	_ "github.com/frainzy1477/trojan-goo/proxy/server"
-	_ "github.com/frainzy1477/trojan-goo/statistic/memory"
+	_ "github.com/frainzy1477/trojan-go/api"
+	_ "github.com/frainzy1477/trojan-go/api/service"
+	"github.com/frainzy1477/trojan-go/common"
+	_ "github.com/frainzy1477/trojan-go/log/golog"
+	"github.com/frainzy1477/trojan-go/proxy"
+	_ "github.com/frainzy1477/trojan-go/proxy/client"
+	_ "github.com/frainzy1477/trojan-go/proxy/forward"
+	_ "github.com/frainzy1477/trojan-go/proxy/nat"
+	_ "github.com/frainzy1477/trojan-go/proxy/server"
+	_ "github.com/frainzy1477/trojan-go/statistic/memory"
 	netproxy "golang.org/x/net/proxy"
 )
 

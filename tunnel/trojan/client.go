@@ -6,15 +6,15 @@ import (
 	"net"
 	"time"
 
-	"github.com/frainzy1477/trojan-goo/api"
-	"github.com/frainzy1477/trojan-goo/config"
-	"github.com/frainzy1477/trojan-goo/statistic/memory"
-	"github.com/frainzy1477/trojan-goo/tunnel/mux"
+	"github.com/frainzy1477/trojan-go/api"
+	"github.com/frainzy1477/trojan-go/config"
+	"github.com/frainzy1477/trojan-go/statistic/memory"
+	"github.com/frainzy1477/trojan-go/tunnel/mux"
 
-	"github.com/frainzy1477/trojan-goo/common"
-	"github.com/frainzy1477/trojan-goo/log"
-	"github.com/frainzy1477/trojan-goo/statistic"
-	"github.com/frainzy1477/trojan-goo/tunnel"
+	"github.com/frainzy1477/trojan-go/common"
+	"github.com/frainzy1477/trojan-go/log"
+	"github.com/frainzy1477/trojan-go/statistic"
+	"github.com/frainzy1477/trojan-go/tunnel"
 )
 
 const (

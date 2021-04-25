@@ -18,14 +18,14 @@ import (
 	//"os/exec"
 	//"os/user"
 
-	"github.com/frainzy1477/trojan-goo/common"
-	"github.com/frainzy1477/trojan-goo/config"
-	"github.com/frainzy1477/trojan-goo/log"
-	"github.com/frainzy1477/trojan-goo/redirector"
-	"github.com/frainzy1477/trojan-goo/tunnel"
-	"github.com/frainzy1477/trojan-goo/tunnel/tls/fingerprint"
-	"github.com/frainzy1477/trojan-goo/tunnel/transport"
-	"github.com/frainzy1477/trojan-goo/tunnel/websocket"
+	"github.com/frainzy1477/trojan-go/common"
+	"github.com/frainzy1477/trojan-go/config"
+	"github.com/frainzy1477/trojan-go/log"
+	"github.com/frainzy1477/trojan-go/redirector"
+	"github.com/frainzy1477/trojan-go/tunnel"
+	"github.com/frainzy1477/trojan-go/tunnel/tls/fingerprint"
+	"github.com/frainzy1477/trojan-go/tunnel/transport"
+	"github.com/frainzy1477/trojan-go/tunnel/websocket"
 )
 
 // Server is a tls server

@@ -1,6 +1,6 @@
 package adapter
 
-import "github.com/frainzy1477/trojan-goo/config"
+import "github.com/frainzy1477/trojan-go/config"
 
 type Config struct {
 	LocalHost string `json:"local_addr" yaml:"local-addr"`

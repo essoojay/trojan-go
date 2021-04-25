@@ -8,7 +8,7 @@ package colorful
 import (
 	"testing"
 
-	"github.com/frainzy1477/trojan-goo/log/golog/buffer"
+	"github.com/frainzy1477/trojan-go/log/golog/buffer"
 	. "github.com/smartystreets/goconvey/convey"
 )
 

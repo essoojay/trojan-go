@@ -4,7 +4,7 @@ import (
 	"io"
 	"net"
 
-	"github.com/frainzy1477/trojan-goo/log"
+	"github.com/frainzy1477/trojan-go/log"
 )
 
 type RewindReader struct {

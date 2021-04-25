@@ -12,8 +12,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/frainzy1477/trojan-goo/log"
-	"github.com/frainzy1477/trojan-goo/log/golog/colorful"
+	"github.com/frainzy1477/trojan-go/log"
+	"github.com/frainzy1477/trojan-go/log/golog/colorful"
 	"golang.org/x/crypto/ssh/terminal"
 )
 

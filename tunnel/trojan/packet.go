@@ -7,10 +7,10 @@ import (
 	"io/ioutil"
 	"net"
 
-	"github.com/frainzy1477/trojan-goo/log"
+	"github.com/frainzy1477/trojan-go/log"
 
-	"github.com/frainzy1477/trojan-goo/common"
-	"github.com/frainzy1477/trojan-goo/tunnel"
+	"github.com/frainzy1477/trojan-go/common"
+	"github.com/frainzy1477/trojan-go/tunnel"
 )
 
 type PacketConn struct {

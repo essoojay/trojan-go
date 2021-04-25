@@ -10,8 +10,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/frainzy1477/trojan-goo/common"
-	"github.com/frainzy1477/trojan-goo/log"
+	"github.com/frainzy1477/trojan-go/common"
+	"github.com/frainzy1477/trojan-go/log"
 	"golang.org/x/net/websocket"
 )
 

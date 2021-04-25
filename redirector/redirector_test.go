@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/frainzy1477/trojan-goo/common"
-	"github.com/frainzy1477/trojan-goo/test/util"
+	"github.com/frainzy1477/trojan-go/common"
+	"github.com/frainzy1477/trojan-go/test/util"
 )
 
 func TestRedirector(t *testing.T) {

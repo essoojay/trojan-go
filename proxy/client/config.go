@@ -1,6 +1,6 @@
 package client
 
-import "github.com/frainzy1477/trojan-goo/config"
+import "github.com/frainzy1477/trojan-go/config"
 
 type MuxConfig struct {
 	Enabled bool `json:"enabled" yaml:"enabled"`

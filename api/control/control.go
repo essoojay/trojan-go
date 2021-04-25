@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"io"
 	"google.golang.org/grpc"
-	"github.com/frainzy1477/trojan-goo/api/service"
-	"github.com/frainzy1477/trojan-goo/common"
-	"github.com/frainzy1477/trojan-goo/log"
-	"github.com/frainzy1477/trojan-goo/option"
+	"github.com/frainzy1477/trojan-go/api/service"
+	"github.com/frainzy1477/trojan-go/common"
+	"github.com/frainzy1477/trojan-go/log"
+	"github.com/frainzy1477/trojan-go/option"
 
 )
 

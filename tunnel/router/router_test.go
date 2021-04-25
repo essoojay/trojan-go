@@ -8,10 +8,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/frainzy1477/trojan-goo/common"
-	"github.com/frainzy1477/trojan-goo/config"
-	"github.com/frainzy1477/trojan-goo/test/util"
-	"github.com/frainzy1477/trojan-goo/tunnel"
+	"github.com/frainzy1477/trojan-go/common"
+	"github.com/frainzy1477/trojan-go/config"
+	"github.com/frainzy1477/trojan-go/test/util"
+	"github.com/frainzy1477/trojan-go/tunnel"
 )
 
 type MockClient struct{}

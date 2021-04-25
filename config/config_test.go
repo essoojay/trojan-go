@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/frainzy1477/trojan-goo/common"
+	"github.com/frainzy1477/trojan-go/common"
 )
 
 type Foo struct {

@@ -3,10 +3,10 @@ package main
 import (
 	"flag"
 
-	"github.com/frainzy1477/trojan-goo/option"
+	"github.com/frainzy1477/trojan-go/option"
 	
-	_ "github.com/frainzy1477/trojan-goo/component"
-	"github.com/frainzy1477/trojan-goo/log"
+	_ "github.com/frainzy1477/trojan-go/component"
+	"github.com/frainzy1477/trojan-go/log"
 	
 )
 

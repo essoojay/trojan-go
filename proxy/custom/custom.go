@@ -4,10 +4,10 @@ import (
 	"context"
 	"strings"
 
-	"github.com/frainzy1477/trojan-goo/common"
-	"github.com/frainzy1477/trojan-goo/config"
-	"github.com/frainzy1477/trojan-goo/proxy"
-	"github.com/frainzy1477/trojan-goo/tunnel"
+	"github.com/frainzy1477/trojan-go/common"
+	"github.com/frainzy1477/trojan-go/config"
+	"github.com/frainzy1477/trojan-go/proxy"
+	"github.com/frainzy1477/trojan-go/tunnel"
 	"gopkg.in/yaml.v3"
 )
 
