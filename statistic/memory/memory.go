@@ -6,13 +6,13 @@ import (
 	"sync/atomic"
 	"time"
 
+	"golang.org/x/time/rate"
+	
 	"github.com/frainzy1477/trojan-go/log"
-
 	"github.com/frainzy1477/trojan-go/config"
-
 	"github.com/frainzy1477/trojan-go/common"
 	"github.com/frainzy1477/trojan-go/statistic"
-	"golang.org/x/time/rate"
+	
 )
 
 const Name = "MEMORY"
@@ -22,13 +22,14 @@ type User struct {
 	recv        uint64
 	lastSent    uint64
 	lastRecv    uint64
-	speedLock   sync.Mutex
+	speedLock   sync.RWMutex
 	sendSpeed   uint64
 	recvSpeed   uint64
 	hash        string
-	ipTableLock sync.Mutex
+	ipTableLock sync.RWMutex
 	ipTable     map[string]struct{}
 	maxIPNum    int
+	limiterLock sync.RWMutex
 	sendLimiter *rate.Limiter
 	recvLimiter *rate.Limiter
 	ctx         context.Context
@@ -73,12 +74,10 @@ func (u *User) DelIP(ip string) bool {
 }
 
 func (u *User) GetIP() int {
-	u.ipTableLock.Lock()
-	defer u.ipTableLock.Unlock()
+	u.ipTableLock.RLock()
+	defer u.ipTableLock.RUnlock()
 	return len(u.ipTable)
 }
-
-
 
 func (u *User) SetIPLimit(n int) {
 	u.maxIPNum = n
@@ -89,9 +88,12 @@ func (u *User) GetIPLimit() int {
 }
 
 func (u *User) AddTraffic(sent, recv int) {
-	if u.sendLimiter != nil && sent != 0 {
+	u.limiterLock.Lock()
+	defer u.limiterLock.Unlock()
+
+	if u.sendLimiter != nil && sent >= 0 {
 		u.sendLimiter.WaitN(u.ctx, sent)
-	} else if u.recvLimiter != nil && recv != 0 {
+	} else if u.recvLimiter != nil && recv >= 0 {
 		u.recvLimiter.WaitN(u.ctx, recv)
 	}
 	atomic.AddUint64(&u.sent, uint64(sent))
@@ -99,6 +101,9 @@ func (u *User) AddTraffic(sent, recv int) {
 }
 
 func (u *User) SetSpeedLimit(send, recv int) {
+	u.limiterLock.Lock()
+	defer u.limiterLock.Unlock()
+
 	if send <= 0 {
 		u.sendLimiter = nil
 	} else {
@@ -112,6 +117,9 @@ func (u *User) SetSpeedLimit(send, recv int) {
 }
 
 func (u *User) GetSpeedLimit() (send, recv int) {
+	u.limiterLock.RLock()
+	defer u.limiterLock.RUnlock()
+
 	sendLimit := 0
 	recvLimit := 0
 	if u.sendLimiter != nil {
@@ -162,8 +170,8 @@ func (u *User) speedUpdater() {
 }
 
 func (u *User) GetSpeed() (uint64, uint64) {
-	u.speedLock.Lock()
-	defer u.speedLock.Unlock()
+	u.speedLock.RLock()
+	defer u.speedLock.RUnlock()
 	return u.sendSpeed, u.recvSpeed
 }
 

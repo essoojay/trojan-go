@@ -21,7 +21,6 @@ type APIConfig struct {
 }
 
 
-
 func init() {
 	config.RegisterConfigCreator(Name, func() interface{} {
 		return &Config{}

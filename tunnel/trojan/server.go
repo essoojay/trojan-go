@@ -10,7 +10,6 @@ import (
 	"github.com/frainzy1477/trojan-go/statistic/memory"
 	"github.com/frainzy1477/trojan-go/statistic/mysql"
 
-
 	"github.com/frainzy1477/trojan-go/common"
 	"github.com/frainzy1477/trojan-go/config"
 	"github.com/frainzy1477/trojan-go/log"

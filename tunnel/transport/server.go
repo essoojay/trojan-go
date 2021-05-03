@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"strconv"
+	"sync"
 	"time"
 
 	"github.com/frainzy1477/trojan-go/common"
@@ -16,12 +17,14 @@ import (
 	"github.com/frainzy1477/trojan-go/tunnel"
 )
 
+
 // Server is a server of transport layer
 type Server struct {
 	tcpListener net.Listener
 	cmd         *exec.Cmd
 	connChan    chan tunnel.Conn
 	wsChan      chan tunnel.Conn
+	httpLock    sync.RWMutex
 	nextHTTP    bool
 	ctx         context.Context
 	cancel      context.CancelFunc
@@ -50,7 +53,9 @@ func (s *Server) acceptLoop() {
 
 		go func(tcpConn net.Conn) {
 			log.Info("tcp connection from", tcpConn.RemoteAddr())
+			s.httpLock.RLock()
 			if s.nextHTTP { // plaintext mode enabled
+				s.httpLock.RUnlock()
 				// we use real http header parser to mimic a real http server
 				rewindConn := common.NewRewindConn(tcpConn)
 				rewindConn.SetBufferSize(512)
@@ -84,7 +89,9 @@ func (s *Server) acceptLoop() {
 func (s *Server) AcceptConn(overlay tunnel.Tunnel) (tunnel.Conn, error) {
 	// TODO fix import cycle
 	if overlay != nil && (overlay.Name() == "WEBSOCKET" || overlay.Name() == "HTTP") {
+		s.httpLock.Lock()
 		s.nextHTTP = true
+		s.httpLock.Unlock()
 		select {
 		case conn := <-s.wsChan:
 			return conn, nil

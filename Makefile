@@ -55,7 +55,7 @@ uninstall:
 release: geosite.dat geoip.dat linux-386.zip linux-amd64.zip \
 	linux-arm.zip linux-armv5.zip linux-armv6.zip linux-armv7.zip linux-armv8.zip \
 	linux-mips-softfloat.zip linux-mips-hardfloat.zip linux-mipsle-softfloat.zip linux-mipsle-hardfloat.zip \
-	linux-mips64.zip linux-mips64le.zip
+	linux-mips64.zip linux-mips64le.zip windows-386.zip windows-amd64.zip
 	
 linux-386:
 	mkdir -p $(BUILD_DIR)/$@
@@ -109,3 +109,10 @@ linux-mips64le:
 	mkdir -p $(BUILD_DIR)/$@
 	GOARCH=mips64le GOOS=linux $(GOBUILD)/$@
 
+windows-386:
+	mkdir -p $(BUILD_DIR)/$@
+	GOARCH=386 GOOS=windows $(GOBUILD)/$@
+
+windows-amd64:
+	mkdir -p $(BUILD_DIR)/$@
+	GOARCH=amd64 GOOS=windows $(GOBUILD)/$@
