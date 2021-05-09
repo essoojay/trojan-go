@@ -49,7 +49,7 @@ install: $(BUILD_DIR)/$(NAME) geoip.dat geosite.dat upx
 	ln -fs /usr/share/$(NAME)/geosite.dat /usr/bin/
 	
 compress: 
-        $(BUILD_DIR)/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$</*
+	$(BUILD_DIR)/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$</*
 	
 	
 uninstall:
