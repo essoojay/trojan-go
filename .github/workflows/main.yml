@@ -25,9 +25,8 @@ jobs:
           echo "TAG_NAME=${tag_name}" >> $GITHUB_ENV
       - name: Build
         run: |
-          make geosite.dat geoip.dat
+          make upx geosite.dat geoip.dat
           make release -j$(nproc)
-          make upx
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
