@@ -30,6 +30,12 @@ test:
 trojan-go:
 	mkdir -p $(BUILD_DIR)
 	$(GOBUILD)
+	wget -q https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz -O $(BUILD_DIR)/upx-3.96.tar.xz
+	rm -rf $(BUILD_DIR)/upx
+	mkdir -p $(BUILD_DIR)/upx
+	xz -d -c $(BUILD_DIR)/upx-3.96.tar.xz | tar -x -C $(BUILD_DIR)/upx
+	chmod +x $(BUILD_DIR)/upx/upx-3.96-amd64_linux/upx
+	$(BUILD_DIR)/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$(NAME)
 
 install: $(BUILD_DIR)/$(NAME) geoip.dat geosite.dat
 	mkdir -p /etc/$(NAME)
