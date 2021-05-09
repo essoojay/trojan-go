@@ -27,6 +27,7 @@ jobs:
         run: |
           make geosite.dat geoip.dat
           make release -j$(nproc)
+          make upx
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
