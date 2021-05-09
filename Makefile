@@ -48,10 +48,7 @@ install: $(BUILD_DIR)/$(NAME) geoip.dat geosite.dat upx
 	ln -fs /usr/share/$(NAME)/geoip.dat /usr/bin/
 	ln -fs /usr/share/$(NAME)/geosite.dat /usr/bin/
 	
-compress: 
-	/usr/share/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$</*
-	
-	
+
 uninstall:
 	rm /usr/bin/$(NAME)
 	rm -rd /etc/$(NAME)
@@ -64,7 +61,7 @@ uninstall:
 	@-zip -du $(NAME)-$@ *.dat
 	@echo "<<< ---- $(NAME)-$@"
 
-release: compress geosite.dat geoip.dat linux-386.zip linux-amd64.zip \
+release: geosite.dat geoip.dat linux-386.zip linux-amd64.zip \
 	linux-arm.zip linux-armv5.zip linux-armv6.zip linux-armv7.zip linux-armv8.zip \
 	linux-mips-softfloat.zip linux-mips-hardfloat.zip linux-mipsle-softfloat.zip linux-mipsle-hardfloat.zip \
 	linux-mips64.zip linux-mips64le.zip windows-386.zip windows-amd64.zip
@@ -72,46 +69,57 @@ release: compress geosite.dat geoip.dat linux-386.zip linux-amd64.zip \
 linux-386:
 	mkdir -p $(BUILD_DIR)/$@
 	GOARCH=386 GOOS=linux $(GOBUILD)/$@
+	/usr/share/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$@/*
 
 linux-amd64:
 	mkdir -p $(BUILD_DIR)/$@
 	GOARCH=amd64 GOOS=linux $(GOBUILD)/$@
+	/usr/share/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$@/*
 
 linux-arm:
 	mkdir -p $(BUILD_DIR)/$@
 	GOARCH=arm GOOS=linux $(GOBUILD)/$@
+	/usr/share/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$@/*
 
 linux-armv5:
 	mkdir -p $(BUILD_DIR)/$@
 	GOARCH=arm GOOS=linux GOARM=5 $(GOBUILD)/$@
+	/usr/share/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$@/*
 
 linux-armv6:
 	mkdir -p $(BUILD_DIR)/$@
 	GOARCH=arm GOOS=linux GOARM=6 $(GOBUILD)/$@
+	/usr/share/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$@/*
 
 linux-armv7:
 	mkdir -p $(BUILD_DIR)/$@
 	GOARCH=arm GOOS=linux GOARM=7 $(GOBUILD)/$@
+	/usr/share/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$@/*
 
 linux-armv8:
 	mkdir -p $(BUILD_DIR)/$@
 	GOARCH=arm64 GOOS=linux $(GOBUILD)/$@
+	/usr/share/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$@/*
 
 linux-mips-softfloat:
 	mkdir -p $(BUILD_DIR)/$@
 	GOARCH=mips GOMIPS=softfloat GOOS=linux $(GOBUILD)/$@
+	/usr/share/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$@/*
 
 linux-mips-hardfloat:
 	mkdir -p $(BUILD_DIR)/$@
 	GOARCH=mips GOMIPS=hardfloat GOOS=linux $(GOBUILD)/$@
+	/usr/share/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$@/*
 
 linux-mipsle-softfloat:
 	mkdir -p $(BUILD_DIR)/$@
 	GOARCH=mipsle GOMIPS=softfloat GOOS=linux $(GOBUILD)/$@
+	/usr/share/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$@/*
 
 linux-mipsle-hardfloat:
 	mkdir -p $(BUILD_DIR)/$@
 	GOARCH=mipsle GOMIPS=hardfloat GOOS=linux $(GOBUILD)/$@
+	/usr/share/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$@/*
 
 linux-mips64:
 	mkdir -p $(BUILD_DIR)/$@
@@ -124,7 +132,9 @@ linux-mips64le:
 windows-386:
 	mkdir -p $(BUILD_DIR)/$@
 	GOARCH=386 GOOS=windows $(GOBUILD)/$@
+	/usr/share/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$@/*
 
 windows-amd64:
 	mkdir -p $(BUILD_DIR)/$@
 	GOARCH=amd64 GOOS=windows $(GOBUILD)/$@
+	/usr/share/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$@/*
