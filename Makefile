@@ -22,7 +22,13 @@ geoip.dat:
 
 geosite.dat:
 	wget https://github.com/v2fly/domain-list-community/raw/release/dlc.dat -O geosite.dat
-
+	
+upx:
+	wget -q https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz -O $(BUILD_DIR)/upx-3.96.tar.xz
+	rm -rf $(BUILD_DIR)/upx
+	mkdir -p $(BUILD_DIR)/upx
+	xz -d -c $(BUILD_DIR)/upx-3.96.tar.xz | tar -x -C $(BUILD_DIR)/upx
+	chmod +x $(BUILD_DIR)/upx/upx-3.96-amd64_linux/upx
 test:
 	# Disable Bloomfilter when testing
 	SHADOWSOCKS_SF_CAPACITY="-1" $(GO_DIR)go test -v ./...
@@ -30,14 +36,9 @@ test:
 trojan-go:
 	mkdir -p $(BUILD_DIR)
 	$(GOBUILD)
-	wget -q https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz -O $(BUILD_DIR)/upx-3.96.tar.xz
-	rm -rf $(BUILD_DIR)/upx
-	mkdir -p $(BUILD_DIR)/upx
-	xz -d -c $(BUILD_DIR)/upx-3.96.tar.xz | tar -x -C $(BUILD_DIR)/upx
-	chmod +x $(BUILD_DIR)/upx/upx-3.96-amd64_linux/upx
-	$(BUILD_DIR)/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$(NAME)
 
-install: $(BUILD_DIR)/$(NAME) geoip.dat geosite.dat
+
+install: $(BUILD_DIR)/$(NAME) geoip.dat geosite.dat upx
 	mkdir -p /etc/$(NAME)
 	mkdir -p /usr/share/$(NAME)
 	cp $(BUILD_DIR)/$(NAME) /usr/bin/$(NAME)
@@ -45,6 +46,7 @@ install: $(BUILD_DIR)/$(NAME) geoip.dat geosite.dat
 	cp geoip.dat /usr/share/$(NAME)/geoip.dat
 	ln -fs /usr/share/$(NAME)/geoip.dat /usr/bin/
 	ln -fs /usr/share/$(NAME)/geosite.dat /usr/bin/
+	$(BUILD_DIR)/upx/upx-3.96-amd64_linux/upx --lzma --best /usr/bin/$(NAME)
 
 uninstall:
 	rm /usr/bin/$(NAME)
