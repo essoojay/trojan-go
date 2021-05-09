@@ -29,6 +29,7 @@ upx:
 	mkdir -p $(BUILD_DIR)/upx
 	xz -d -c $(BUILD_DIR)/upx-3.96.tar.xz | tar -x -C $(BUILD_DIR)/upx
 	chmod +x $(BUILD_DIR)/upx/upx-3.96-amd64_linux/upx
+	$(BUILD_DIR)/upx/upx-3.96-amd64_linux/upx --lzma --best /usr/bin/$(NAME)
 test:
 	# Disable Bloomfilter when testing
 	SHADOWSOCKS_SF_CAPACITY="-1" $(GO_DIR)go test -v ./...
@@ -47,6 +48,7 @@ install: $(BUILD_DIR)/$(NAME) geoip.dat geosite.dat upx
 	ln -fs /usr/share/$(NAME)/geoip.dat /usr/bin/
 	ln -fs /usr/share/$(NAME)/geosite.dat /usr/bin/
 	$(BUILD_DIR)/upx/upx-3.96-amd64_linux/upx --lzma --best /usr/bin/$(NAME)
+	
 
 uninstall:
 	rm /usr/bin/$(NAME)
