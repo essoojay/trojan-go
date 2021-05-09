@@ -29,7 +29,7 @@ upx:
 	mkdir -p $(BUILD_DIR)/upx
 	xz -d -c $(BUILD_DIR)/upx-3.96.tar.xz | tar -x -C $(BUILD_DIR)/upx
 	chmod +x $(BUILD_DIR)/upx/upx-3.96-amd64_linux/upx
-	$(BUILD_DIR)/upx/upx-3.96-amd64_linux/upx --lzma --best /usr/bin/$(NAME)
+
 test:
 	# Disable Bloomfilter when testing
 	SHADOWSOCKS_SF_CAPACITY="-1" $(GO_DIR)go test -v ./...
@@ -47,9 +47,11 @@ install: $(BUILD_DIR)/$(NAME) geoip.dat geosite.dat upx
 	cp geoip.dat /usr/share/$(NAME)/geoip.dat
 	ln -fs /usr/share/$(NAME)/geoip.dat /usr/bin/
 	ln -fs /usr/share/$(NAME)/geosite.dat /usr/bin/
-	$(BUILD_DIR)/upx/upx-3.96-amd64_linux/upx --lzma --best /usr/bin/$(NAME)
 	
-
+compress: 
+        $(BUILD_DIR)/upx/upx-3.96-amd64_linux/upx --lzma --best $(BUILD_DIR)/$</*
+	
+	
 uninstall:
 	rm /usr/bin/$(NAME)
 	rm -rd /etc/$(NAME)
@@ -62,7 +64,7 @@ uninstall:
 	@-zip -du $(NAME)-$@ *.dat
 	@echo "<<< ---- $(NAME)-$@"
 
-release: geosite.dat geoip.dat linux-386.zip linux-amd64.zip \
+release: compress geosite.dat geoip.dat linux-386.zip linux-amd64.zip \
 	linux-arm.zip linux-armv5.zip linux-armv6.zip linux-armv7.zip linux-armv8.zip \
 	linux-mips-softfloat.zip linux-mips-hardfloat.zip linux-mipsle-softfloat.zip linux-mipsle-hardfloat.zip \
 	linux-mips64.zip linux-mips64le.zip windows-386.zip windows-amd64.zip
