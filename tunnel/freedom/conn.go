@@ -4,10 +4,11 @@ import (
 	"bytes"
 	"net"
 
+	"github.com/txthinking/socks5"
+
 	"github.com/frainzy1477/trojan-go/common"
 	"github.com/frainzy1477/trojan-go/log"
 	"github.com/frainzy1477/trojan-go/tunnel"
-	"github.com/txthinking/socks5"
 )
 
 const MaxPacketSize = 1024 * 8
@@ -64,7 +65,7 @@ type SocksPacketConn struct {
 
 func (c *SocksPacketConn) WriteWithMetadata(payload []byte, metadata *tunnel.Metadata) (int, error) {
 	buf := bytes.NewBuffer(make([]byte, 0, MaxPacketSize))
-	buf.Write([]byte{0, 0, 0}) //RSV, FRAG
+	buf.Write([]byte{0, 0, 0}) // RSV, FRAG
 	common.Must(metadata.Address.WriteTo(buf))
 	buf.Write(payload)
 	_, err := c.PacketConn.WriteTo(buf.Bytes(), c.socksAddr)

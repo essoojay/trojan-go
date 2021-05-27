@@ -29,7 +29,6 @@ func (s *ClientAPI) GetTraffic(ctx context.Context, req *GetTrafficRequest) (*Ge
 		return nil, common.NewError("User is unspecified")
 	}
 	var user statistic.User
-	
 	if req.User.Hash == "" {
 		if req.User.Password == "" {
 			for _, u := range s.auth.ListUsers() {

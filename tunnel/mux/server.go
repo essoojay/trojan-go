@@ -3,10 +3,11 @@ package mux
 import (
 	"context"
 
+	"github.com/xtaci/smux"
+
 	"github.com/frainzy1477/trojan-go/common"
 	"github.com/frainzy1477/trojan-go/log"
 	"github.com/frainzy1477/trojan-go/tunnel"
-	"github.com/xtaci/smux"
 )
 
 // Server is a smux server
@@ -31,7 +32,7 @@ func (s *Server) acceptConnWorker() {
 		}
 		go func(conn tunnel.Conn) {
 			smuxConfig := smux.DefaultConfig()
-			//smuxConfig.KeepAliveDisabled = true
+			// smuxConfig.KeepAliveDisabled = true
 			smuxSession, err := smux.Server(conn, smuxConfig)
 			if err != nil {
 				log.Error(err)

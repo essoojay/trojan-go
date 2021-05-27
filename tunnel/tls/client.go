@@ -9,14 +9,14 @@ import (
 	"io/ioutil"
 	"strings"
 
+	utls "github.com/refraction-networking/utls"
+
 	"github.com/frainzy1477/trojan-go/common"
 	"github.com/frainzy1477/trojan-go/config"
 	"github.com/frainzy1477/trojan-go/log"
 	"github.com/frainzy1477/trojan-go/tunnel"
 	"github.com/frainzy1477/trojan-go/tunnel/tls/fingerprint"
 	"github.com/frainzy1477/trojan-go/tunnel/transport"
-	//"github.com/frainzy1477/trojan-go/tunnel/websocket"
-	utls "github.com/refraction-networking/utls"
 )
 
 // Client is a tls client
@@ -86,7 +86,7 @@ func (c *Client) DialConn(_ *tunnel.Address, overlay tunnel.Tunnel) (tunnel.Conn
 // NewClient creates a tls client
 func NewClient(ctx context.Context, underlay tunnel.Client) (*Client, error) {
 	cfg := config.FromContext(ctx, Name).(*Config)
-	
+
 	helloID := utls.ClientHelloID{}
 	if cfg.TLS.Fingerprint != "" {
 		switch cfg.TLS.Fingerprint {

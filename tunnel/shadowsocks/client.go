@@ -3,11 +3,12 @@ package shadowsocks
 import (
 	"context"
 
+	"github.com/shadowsocks/go-shadowsocks2/core"
+
 	"github.com/frainzy1477/trojan-go/common"
 	"github.com/frainzy1477/trojan-go/config"
 	"github.com/frainzy1477/trojan-go/log"
 	"github.com/frainzy1477/trojan-go/tunnel"
-	"github.com/shadowsocks/go-shadowsocks2/core"
 )
 
 type Client struct {

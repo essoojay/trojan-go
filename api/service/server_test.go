@@ -9,11 +9,12 @@ import (
 	"testing"
 	"time"
 
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
+
 	"github.com/frainzy1477/trojan-go/common"
 	"github.com/frainzy1477/trojan-go/config"
 	"github.com/frainzy1477/trojan-go/statistic/memory"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 )
 
 func TestServerAPI(t *testing.T) {
@@ -70,6 +71,7 @@ func TestServerAPI(t *testing.T) {
 	}
 
 	stream3, err := server.SetUsers(ctx)
+	common.Must(err)
 	stream3.Send(&SetUsersRequest{
 		Status: &UserStatus{
 			User: &User{
@@ -146,6 +148,7 @@ func TestServerAPI(t *testing.T) {
 			},
 		})
 		resp2, err = stream2.Recv()
+		common.Must(err)
 		fmt.Println(resp2.Status.SpeedCurrent)
 		fmt.Println(resp2.Status.SpeedLimit)
 		time.Sleep(time.Second)
@@ -185,6 +188,7 @@ func TestTLS(t *testing.T) {
 	time.Sleep(time.Second)
 	pool := x509.NewCertPool()
 	certBytes, err := ioutil.ReadFile("server.crt")
+	common.Must(err)
 	pool.AppendCertsFromPEM(certBytes)
 
 	certificate, err := tls.LoadX509KeyPair("client.crt", "client.key")
@@ -203,8 +207,7 @@ func TestTLS(t *testing.T) {
 	conn.Close()
 }
 
-
-	var serverCert = `
+var serverCert = `
 -----BEGIN CERTIFICATE-----
 MIIC+TCCAeGgAwIBAgIQAZ1MkNXl76ABOPPQ6ci25zANBgkqhkiG9w0BAQsFADAS
 MRAwDgYDVQQKEwdBY21lIENvMB4XDTIwMDkwNjAzMTM1NVoXDTIxMDkwNjAzMTM1
@@ -255,7 +258,8 @@ LYIN/nRkP0BLRwfZklUbdO3h1lvvlxM533luvX5mo41Gjg/b2f36yRXTa01Q+QML
 NYpAJoagHIeNLGo4aJFwiVsZ
 -----END PRIVATE KEY-----
 `
-	var clientKey = `
+
+var clientKey = `
 -----BEGIN PRIVATE KEY-----
 MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDtp0CreAAU+8K9
 rz3e+XYcbf+WgVWOwD1+80g3ixHjUTnBDx4n+rAD9UvVNMfMPBt65vxB3jBFk7BN
@@ -285,7 +289,8 @@ WPOZ+zXCv9n7WxUeIvHTS9d7OnVkxp2qkUwnC1mmxH40HTQ1c2rUHCxWLe+Qrwi6
 X7nFPTe00Vd/5OGXkkv3JL4=
 -----END PRIVATE KEY-----
 `
-	var clientCert = `
+
+var clientCert = `
 -----BEGIN CERTIFICATE-----
 MIIC+jCCAeKgAwIBAgIRAJCepdWc3B+X+BMsoK9nJlAwDQYJKoZIhvcNAQELBQAw
 EjEQMA4GA1UEChMHQWNtZSBDbzAeFw0yMDA5MDYwMzIyMzdaFw0yMTA5MDYwMzIy
@@ -304,11 +309,12 @@ A/U291tzkuMc0nalNRFZFJJbSeap+NdNLWEGTbH08Dg/e9/p16lYvq4Th2mXryMz
 wDxdHr2KFJp+qMbWF2WHIAUrCBr7gTW5BQElnVTyIihUOTAUCrEfFEj4uN3UXwM5
 qbPPrmQPgv5prRHCObn0+j6SwV9vV7Q9BI41CloKUDXZmPFTVipP6z5tV2YTOg==
 -----END CERTIFICATE-----
+
 `
 
 func init() {
-	ioutil.WriteFile("server.crt", []byte(serverCert), 0777)
-	ioutil.WriteFile("server.key", []byte(serverKey), 0777)
-	ioutil.WriteFile("client.crt", []byte(clientCert), 0777)
-	ioutil.WriteFile("client.key", []byte(clientKey), 0777)
+	ioutil.WriteFile("server.crt", []byte(serverCert), 0o777)
+	ioutil.WriteFile("server.key", []byte(serverKey), 0o777)
+	ioutil.WriteFile("client.crt", []byte(clientCert), 0o777)
+	ioutil.WriteFile("client.key", []byte(clientKey), 0o777)
 }

@@ -9,12 +9,13 @@ import (
 	"strings"
 	"time"
 
+	"golang.org/x/net/websocket"
+
 	"github.com/frainzy1477/trojan-go/common"
 	"github.com/frainzy1477/trojan-go/config"
 	"github.com/frainzy1477/trojan-go/log"
 	"github.com/frainzy1477/trojan-go/redirector"
 	"github.com/frainzy1477/trojan-go/tunnel"
-	"golang.org/x/net/websocket"
 )
 
 // Fake response writer
@@ -65,7 +66,6 @@ func (s *Server) AcceptConn(tunnel.Tunnel) (tunnel.Conn, error) {
 	defer rewindConn.StopBuffering()
 	rw := bufio.NewReadWriter(bufio.NewReader(rewindConn), bufio.NewWriter(rewindConn))
 	req, err := http.ReadRequest(rw.Reader)
-
 	if err != nil {
 		log.Debug("invalid http request")
 		rewindConn.Rewind()
@@ -92,6 +92,9 @@ func (s *Server) AcceptConn(tunnel.Tunnel) (tunnel.Conn, error) {
 	url := "wss://" + s.hostname + s.path
 	origin := "https://" + s.hostname
 	wsConfig, err := websocket.NewConfig(url, origin)
+	if err != nil {
+		return nil, common.NewError("failed to create websocket config").Base(err)
+	}
 	var wsConn *websocket.Conn
 	ctx, cancel := context.WithCancel(s.ctx)
 
@@ -100,6 +103,7 @@ func (s *Server) AcceptConn(tunnel.Tunnel) (tunnel.Conn, error) {
 		Handler: func(conn *websocket.Conn) {
 			wsConn = conn                              // store the websocket after handshaking
 			wsConn.PayloadType = websocket.BinaryFrame // treat it as a binary websocket
+
 			log.Debug("websocket obtained")
 			handshake <- struct{}{}
 			// this function SHOULD NOT return unless the connection is ended

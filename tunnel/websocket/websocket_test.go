@@ -9,13 +9,14 @@ import (
 	"testing"
 	"time"
 
+	"golang.org/x/net/websocket"
+
 	"github.com/frainzy1477/trojan-go/common"
 	"github.com/frainzy1477/trojan-go/config"
 	"github.com/frainzy1477/trojan-go/test/util"
 	"github.com/frainzy1477/trojan-go/tunnel"
 	"github.com/frainzy1477/trojan-go/tunnel/freedom"
 	"github.com/frainzy1477/trojan-go/tunnel/transport"
-	"golang.org/x/net/websocket"
 )
 
 func TestWebsocket(t *testing.T) {

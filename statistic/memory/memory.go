@@ -7,12 +7,11 @@ import (
 	"time"
 
 	"golang.org/x/time/rate"
-	
-	"github.com/frainzy1477/trojan-go/log"
-	"github.com/frainzy1477/trojan-go/config"
+
 	"github.com/frainzy1477/trojan-go/common"
+	"github.com/frainzy1477/trojan-go/config"
+	"github.com/frainzy1477/trojan-go/log"
 	"github.com/frainzy1477/trojan-go/statistic"
-	
 )
 
 const Name = "MEMORY"

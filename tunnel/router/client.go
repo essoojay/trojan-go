@@ -52,7 +52,7 @@ func matchDomain(list []*v2router.Domain, target string) bool {
 				}
 			}
 		case v2router.Domain_Plain:
-			//keyword
+			// keyword
 			if strings.Contains(target, d.GetValue()) {
 				log.Tracef("domain %s hit keyword rule: %s", target, d.GetValue())
 				return true
@@ -85,11 +85,11 @@ func matchIP(list []*v2router.CIDR, target net.IP) bool {
 		n := int(c.GetPrefix())
 		mask := net.CIDRMask(n, 8*len)
 		cidrIP := net.IP(c.GetIp())
-		if cidrIP.To4() != nil { //IPv4 CIDR
+		if cidrIP.To4() != nil { // IPv4 CIDR
 			if isIPv6 {
 				continue
 			}
-		} else { //IPv6 CIDR
+		} else { // IPv6 CIDR
 			if !isIPv6 {
 				continue
 			}
@@ -131,45 +131,40 @@ type Client struct {
 }
 
 func (c *Client) Route(address *tunnel.Address) int {
-	policy := -1
-	var err error
-	if c.domainStrategy == IPOnDemand {
-		address, err = newIPAddress(address)
-		if err != nil {
-			return c.defaultPolicy
-		}
-	}
 	if address.AddressType == tunnel.DomainName {
-		for i := 0; i < 3; i++ {
+		if c.domainStrategy == IPOnDemand {
+			resolvedIP, err := newIPAddress(address)
+			if err == nil {
+				for i := Block; i <= Proxy; i++ {
+					if matchIP(c.cidrs[i], resolvedIP.IP) {
+						return i
+					}
+				}
+			}
+		}
+		for i := Block; i <= Proxy; i++ {
 			if matchDomain(c.domains[i], address.DomainName) {
-				policy = i
-				break
+				return i
+			}
+		}
+		if c.domainStrategy == IPIfNonMatch {
+			resolvedIP, err := newIPAddress(address)
+			if err == nil {
+				for i := Block; i <= Proxy; i++ {
+					if matchIP(c.cidrs[i], resolvedIP.IP) {
+						return i
+					}
+				}
 			}
 		}
 	} else {
-		for i := 0; i < 3; i++ {
+		for i := Block; i <= Proxy; i++ {
 			if matchIP(c.cidrs[i], address.IP) {
-				policy = i
-				break
+				return i
 			}
 		}
 	}
-	if policy == -1 && c.domainStrategy == IPIfNonMatch {
-		address, err = newIPAddress(address)
-		if err != nil {
-			return c.defaultPolicy
-		}
-		for i := 0; i < 3; i++ {
-			if matchIP(c.cidrs[i], address.IP) {
-				policy = i
-				break
-			}
-		}
-	}
-	if policy == -1 {
-		policy = c.defaultPolicy
-	}
-	return policy
+	return c.defaultPolicy
 }
 
 func (c *Client) DialConn(address *tunnel.Address, overlay tunnel.Tunnel) (tunnel.Conn, error) {

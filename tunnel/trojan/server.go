@@ -7,14 +7,13 @@ import (
 	"net"
 
 	"github.com/frainzy1477/trojan-go/api"
-	"github.com/frainzy1477/trojan-go/statistic/memory"
-	"github.com/frainzy1477/trojan-go/statistic/mysql"
-
 	"github.com/frainzy1477/trojan-go/common"
 	"github.com/frainzy1477/trojan-go/config"
 	"github.com/frainzy1477/trojan-go/log"
 	"github.com/frainzy1477/trojan-go/redirector"
 	"github.com/frainzy1477/trojan-go/statistic"
+	"github.com/frainzy1477/trojan-go/statistic/memory"
+	"github.com/frainzy1477/trojan-go/statistic/mysql"
 	"github.com/frainzy1477/trojan-go/tunnel"
 	"github.com/frainzy1477/trojan-go/tunnel/mux"
 )
@@ -159,6 +158,7 @@ func (s *Server) acceptLoop() {
 					s.connChan <- inboundConn
 					log.Debug("normal trojan connection")
 				}
+
 			case Associate:
 				s.packetChan <- &PacketConn{
 					Conn: inboundConn,
@@ -209,8 +209,6 @@ func NewServer(ctx context.Context, underlay tunnel.Server) (*Server, error) {
 	// TODO replace this dirty code
 	var auth statistic.Authenticator
 	var err error
-	
-	
 	if cfg.MySQL.Enabled {
 		log.Debug("mysql enabled")
 		auth, err = statistic.NewAuthenticator(ctx, mysql.Name)
@@ -218,7 +216,7 @@ func NewServer(ctx context.Context, underlay tunnel.Server) (*Server, error) {
 		log.Debug("auth by config file")
 		auth, err = statistic.NewAuthenticator(ctx, memory.Name)
 	}
-	
+
 	if err != nil {
 		cancel()
 		return nil, common.NewError("trojan failed to create authenticator")

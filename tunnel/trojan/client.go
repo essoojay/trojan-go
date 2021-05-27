@@ -7,14 +7,13 @@ import (
 	"time"
 
 	"github.com/frainzy1477/trojan-go/api"
-	"github.com/frainzy1477/trojan-go/config"
-	"github.com/frainzy1477/trojan-go/statistic/memory"
-	"github.com/frainzy1477/trojan-go/tunnel/mux"
-
 	"github.com/frainzy1477/trojan-go/common"
+	"github.com/frainzy1477/trojan-go/config"
 	"github.com/frainzy1477/trojan-go/log"
 	"github.com/frainzy1477/trojan-go/statistic"
+	"github.com/frainzy1477/trojan-go/statistic/memory"
 	"github.com/frainzy1477/trojan-go/tunnel"
+	"github.com/frainzy1477/trojan-go/tunnel/mux"
 )
 
 const (

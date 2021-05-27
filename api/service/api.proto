@@ -1,4 +1,5 @@
 syntax = "proto3";
+
 package trojan.api;
 option go_package = "github.com/frainzy1477/trojan-go/api/service";
 

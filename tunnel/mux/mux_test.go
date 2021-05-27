@@ -4,11 +4,11 @@ import (
 	"context"
 	"testing"
 
-	"github.com/frainzy1477/trojan-go/tunnel/transport"
-	"github.com/frainzy1477/trojan-go/tunnel/freedom"
 	"github.com/frainzy1477/trojan-go/common"
 	"github.com/frainzy1477/trojan-go/config"
 	"github.com/frainzy1477/trojan-go/test/util"
+	"github.com/frainzy1477/trojan-go/tunnel/freedom"
+	"github.com/frainzy1477/trojan-go/tunnel/transport"
 )
 
 func TestMux(t *testing.T) {
@@ -29,8 +29,8 @@ func TestMux(t *testing.T) {
 		RemotePort: port,
 	}
 	ctx = config.WithConfig(ctx, transport.Name, transportConfig)
-
 	ctx = config.WithConfig(ctx, freedom.Name, &freedom.Config{})
+
 	tcpClient, err := transport.NewClient(ctx, nil)
 	common.Must(err)
 	tcpServer, err := transport.NewServer(ctx, nil)

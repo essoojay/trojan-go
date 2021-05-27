@@ -17,7 +17,6 @@ import (
 	"github.com/frainzy1477/trojan-go/tunnel"
 )
 
-
 // Server is a server of transport layer
 type Server struct {
 	tcpListener net.Listener

@@ -6,12 +6,12 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/frainzy1477/trojan-go/config"
-
 	"github.com/frainzy1477/trojan-go/common"
-	"github.com/frainzy1477/trojan-go/tunnel/freedom"
+	"github.com/frainzy1477/trojan-go/config"
 	"github.com/frainzy1477/trojan-go/test/util"
+	"github.com/frainzy1477/trojan-go/tunnel/freedom"
 )
+
 func TestTransport(t *testing.T) {
 	serverCfg := &Config{
 		LocalHost:  "127.0.0.1",

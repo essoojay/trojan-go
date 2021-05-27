@@ -19,6 +19,7 @@ func TestUrl_Handle(t *testing.T) {
 		"mux=false;listen=127.0.0.1:0",
 		"mux=false;listen=127.0.0.1:0;api=127.0.0.1:0",
 	}
+
 	for _, s := range urlCases {
 		for _, option := range optionCases {
 			s := s
@@ -29,10 +30,12 @@ func TestUrl_Handle(t *testing.T) {
 			}
 			u.Name()
 			u.Priority()
+
 			errChan := make(chan error, 1)
 			go func() {
 				errChan <- u.Handle()
 			}()
+
 			select {
 			case err := <-errChan:
 				t.Fatal(err)
